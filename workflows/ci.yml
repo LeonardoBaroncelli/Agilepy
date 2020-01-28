@@ -1,0 +1,64 @@
+name: Continous delivery on Anaconda Cloud
+on:
+
+  push:
+
+    tags:
+      - v*
+
+jobs:
+
+  setup:
+    runs-on: ubuntu-18.04
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: DEBUG
+        run: |
+          pwd
+          ls -la
+          echo "GITHUB_REF=$GITHUB_REF"
+
+      - name: Installing Anaconda
+        uses: s-weigand/setup-conda@v1
+        with:
+          update-conda: True
+          conda-channels: conda-forge, addis.inaf, LeonardoBaroncelli
+
+      - name: Anaconda info
+        run: |
+          which python
+          conda --version
+
+      - name: Installing conda-build
+        run: |
+          conda install conda-build
+          conda update conda-build
+
+      - name: Download Agilepy-recipe
+        run: git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
+
+      - name: Debug
+        run: |
+          pwd
+          ls -la
+
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Conda build
+        run: |
+          cd Agilepy-recipe/github-workflow-build
+          conda-build .
+
+  publish:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Publish on Anaconda cloud
+      uses: m0nhawk/conda-package-publish-action@master
+      with:
+        subDir: '.'
+        AnacondaUsername: ${{ secrets.ANACONDA_PASSWORD }}
+        AnacondaPassword: ${{ secrets.ANACONDA_USERNAME }}
