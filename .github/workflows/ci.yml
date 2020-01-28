@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  setup:
+  build_and_publish:
     runs-on: ubuntu-18.04
     steps:
 
