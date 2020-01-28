@@ -53,8 +53,8 @@ jobs:
           ls -la
 
       - name: Build and Publish on Anaconda cloud
-        uses: m0nhawk/conda-package-publish-action@master
-        with:
-          subDir: './Agilepy-recipe/github-workflow-build'
-          AnacondaUsername: ${{ secrets.ANACONDA_PASSWORD }}
-          AnacondaPassword: ${{ secrets.ANACONDA_USERNAME }}
+        run: |
+          conda config --set anaconda_upload yes
+          anaconda login --username $INPUT_ANACONDAUSERNAME --password $INPUT_ANACONDAPASSWORD
+          conda build .
+          anaconda logout

@@ -25,6 +25,12 @@ jobs:
           ls -la
           echo "GITHUB_REF=$GITHUB_REF"
 
+      - name: Installing dependencies
+        run: |
+          yum -y install epel-release rsync unzip mailx bzip2
+          yum -y install git make gcc gcc-c++ binutils libX11-devel libXpm-devel libXft-devel libXext-devel
+          yum -y install curl less vim wget bc which
+          
       - name: Installing Anaconda
         run: |
           echo "Install anaconda 5.3.0 x86_64"
