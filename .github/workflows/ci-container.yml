@@ -9,9 +9,10 @@ on:
 jobs:
 
   build_and_publish:
-    
-    runs-on:
-      container: centos7-python
+
+    runs-on: ubuntu-latest
+
+    container: centos7-python
 
     steps:
 
@@ -41,7 +42,9 @@ jobs:
           conda update conda-build
 
       - name: Download Agilepy-recipe
-        run: git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
+        run: |
+          git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
+          cp Agilepy-recipe/* ./
 
       - name: Debug
         run: |

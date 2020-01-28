@@ -40,7 +40,9 @@ jobs:
           conda update conda-build
 
       - name: Download Agilepy-recipe
-        run: git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
+        run: |
+          git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
+          cp Agilepy-recipe/* ./
 
       - name: Debug
         run: |
