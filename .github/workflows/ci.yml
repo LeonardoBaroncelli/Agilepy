@@ -9,8 +9,9 @@ on:
 jobs:
 
   build_and_publish:
-    container:
-      image: ubuntu-18.04
+
+    runs-on: ubuntu-18.04
+
     steps:
 
       - name: Checkout code
