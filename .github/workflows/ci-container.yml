@@ -26,29 +26,33 @@ jobs:
           echo "GITHUB_REF=$GITHUB_REF"
 
       - name: Installing Anaconda
-        uses: s-weigand/setup-conda@v1
-        with:
-          update-conda: True
-          conda-channels: conda-forge, addis.inaf, LeonardoBaroncelli
+        run: |
+          echo "Install anaconda 5.3.0 x86_64"
+          wget -q https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh
+          echo "cfbf5fe70dd1b797ec677e63c61f8efc92dad930fd1c94d60390bb07fdc09959  Anaconda3-5.3.0-Linux-x86_64.sh" > anaconda_hash_sha256
+          sha256sum -c anaconda_hash_sha256
+          bash Anaconda3-5.3.0-Linux-x86_64.sh -b -p /opt/anaconda3
+          ln -s /opt/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+
 
       - name: Anaconda info
         run: |
           which python
-          conda --version
+          /opt/anaconda3/bin/conda --version
 
       - name: Installing conda-build
         run: |
-          conda install conda-build
-          conda update conda-build
+          /opt/anaconda3/bin/conda install conda-build
+          /opt/anaconda3/bin/conda update conda-build
 
       - name: Download Agilepy-recipe
         run: |
           git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
-          cp Agilepy-recipe/activate.sh ./
-          cp Agilepy-recipe/deactivate.sh ./
-          cp Agilepy-recipe/build.sh ./
-          cp Agilepy-recipe/meta.yaml ./
-          
+          cp Agilepy-recipe/github-workflow-build/activate.sh ./
+          cp Agilepy-recipe/github-workflow-build/deactivate.sh ./
+          cp Agilepy-recipe/github-workflow-build/build.sh ./
+          cp Agilepy-recipe/github-workflow-build/meta.yaml ./
+
       - name: Debug
         run: |
           pwd

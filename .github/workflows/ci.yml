@@ -42,10 +42,10 @@ jobs:
       - name: Download Agilepy-recipe
         run: |
           git clone https://github.com/AGILESCIENCE/Agilepy-recipe.git
-          cp Agilepy-recipe/activate.sh ./
-          cp Agilepy-recipe/deactivate.sh ./
-          cp Agilepy-recipe/build.sh ./
-          cp Agilepy-recipe/meta.yaml ./
+          cp Agilepy-recipe/github-workflow-build/activate.sh ./
+          cp Agilepy-recipe/github-workflow-build/deactivate.sh ./
+          cp Agilepy-recipe/github-workflow-build/build.sh ./
+          cp Agilepy-recipe/github-workflow-build/meta.yaml ./
 
       - name: Debug
         run: |
