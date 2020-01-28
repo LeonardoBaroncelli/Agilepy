@@ -1,4 +1,4 @@
-name: Continous delivery on Anaconda Cloud (build in docker container)
+name: Continous delivery on Anaconda Cloud
 on:
 
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
 
   setup:
-    container: centos7-python
+    runs-on: ubuntu-18.04
     steps:
 
       - name: Checkout code
@@ -44,3 +44,16 @@ jobs:
         run: |
           pwd
           ls -la
+
+      - name: Conda build
+        run: |
+          cd Agilepy-recipe/github-workflow-build
+          conda-build .
+
+
+      - name: Publish on Anaconda cloud
+        uses: m0nhawk/conda-package-publish-action@master
+        with:
+          subDir: '.'
+          AnacondaUsername: ${{ secrets.ANACONDA_PASSWORD }}
+          AnacondaPassword: ${{ secrets.ANACONDA_USERNAME }}
