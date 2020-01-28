@@ -1,18 +1,19 @@
-name: new_release
+name: Continous delivery on Anaconda Cloud
 on:
+
   push:
-    branches:
-      - master
+
     tags:
       - v*
 
 jobs:
 
   setup:
-
     runs-on: ubuntu-18.04
-
     steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: DEBUG
         run: |
@@ -20,20 +21,13 @@ jobs:
           ls -la
           echo "GITHUB_REF=$GITHUB_REF"
 
-      - uses: actions/checkout@v2
-
-      - name: DEBUG
-        run: |
-          pwd
-          ls -la
-
-
-      - uses: s-weigand/setup-conda@v1
+      - name: Installing Anaconda
+        uses: s-weigand/setup-conda@v1
         with:
           update-conda: True
-          conda-channels: conda-forge, addis.inaf
+          conda-channels: conda-forge, addis.inaf, LeonardoBaroncelli
 
-      - name: Conda info
+      - name: Anaconda info
         run: |
           which python
           conda --version
@@ -51,7 +45,20 @@ jobs:
           pwd
           ls -la
 
+  build:
+    runs-on: ubuntu-18.04
+    steps:
       - name: Conda build
         run: |
           cd Agilepy-recipe/github-workflow-build
           conda-build .
+
+  publish:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Publish on Anaconda cloud
+      uses: m0nhawk/conda-package-publish-action@master
+      with:
+        subDir: '.'
+        AnacondaUsername: ${{ secrets.ANACONDA_PASSWORD }}
+        AnacondaPassword: ${{ secrets.ANACONDA_USERNAME }}
