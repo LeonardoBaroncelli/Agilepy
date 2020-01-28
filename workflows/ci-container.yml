@@ -1,4 +1,4 @@
-name: Continous delivery on Anaconda Cloud
+name: Continous delivery on Anaconda Cloud (build in docker container)
 on:
 
   push:
@@ -8,8 +8,11 @@ on:
 
 jobs:
 
-  setup:
-    container: centos7-python
+  build_and_publish:
+    
+    runs-on:
+      container: centos7-python
+
     steps:
 
       - name: Checkout code
