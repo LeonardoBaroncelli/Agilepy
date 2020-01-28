@@ -21,8 +21,12 @@ jobs:
           echo "GITHUB_REF=$GITHUB_REF"
 
       - uses: actions/checkout@v2
-        with:
-          ref: $GITHUB_REF
+
+      - name: DEBUG
+        run: |
+          pwd
+          ls -la
+          
 
       - uses: s-weigand/setup-conda@v1
         with:
