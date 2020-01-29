@@ -56,6 +56,9 @@ jobs:
 
 
       - name: Debug
+        env:
+          USERNAME: ${{ secrets.ANACONDAUSERNAME }}
+          PASSWORD: ${{ secrets.ANACONDAPASSWORD }}
         run: |
           echo "GITHUB_REF=$GITHUB_REF"
           pwd
@@ -64,6 +67,8 @@ jobs:
           lscpu
           python --version
           ls /opt/anaconda3/bin
+          echo "USERNAME=$USERNAME"
+          echo "PASSWORD=$PASSWORD"
 
       - name: Build and Publish on Anaconda cloud
         env:
