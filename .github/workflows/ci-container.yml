@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container: prairielearn/centos7-python
+    # container: prairielearn/centos7-python
 
     steps:
 
