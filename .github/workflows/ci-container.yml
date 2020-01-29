@@ -56,9 +56,6 @@ jobs:
 
 
       - name: Debug
-        env:
-          USERNAME: ${{ secrets.ANACONDAUSERNAME }}
-          PASSWORD: ${{ secrets.ANACONDAPASSWORD }}
         run: |
           echo "GITHUB_REF=$GITHUB_REF"
           pwd
@@ -67,13 +64,11 @@ jobs:
           lscpu
           python --version
           ls /opt/anaconda3/bin
-          echo "USERNAME=$USERNAME"
-          echo "PASSWORD=$PASSWORD"
 
       - name: Build and Publish on Anaconda cloud
         env:
-          USERNAME: ${{ secrets.ANACONDAUSERNAME }}
-          PASSWORD: ${{ secrets.ANACONDAPASSWORD }}
+          USERNAME: ${{ secrets.ANACONDA_USERNAME }}
+          PASSWORD: ${{ secrets.ANACONDA_PASSWORD }}
         run: |
           /opt/anaconda3/bin/conda config --set anaconda_upload yes
           /opt/anaconda3/bin/anaconda login --username $USERNAME --password $PASSWORD
