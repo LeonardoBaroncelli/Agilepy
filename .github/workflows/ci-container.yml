@@ -72,4 +72,4 @@ jobs:
         run: |
           /opt/anaconda3/bin/conda config --set anaconda_upload yes
           /opt/anaconda3/bin/anaconda login --username $USERNAME --password $PASSWORD
-          conda-build .
+          /opt/anaconda3/bin/conda-build .
