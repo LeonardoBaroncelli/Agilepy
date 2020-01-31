@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # container: prairielearn/centos7-python
+    container: prairielearn/centos7-python
 
     steps:
 
@@ -60,8 +60,8 @@ jobs:
           echo "GITHUB_REF=$GITHUB_REF"
           pwd
           ls -la
-          uname -a
-          lscpu
+          cat /etc/os-release
+          which python
           python --version
           ls /opt/anaconda3/bin
 
