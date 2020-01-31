@@ -60,7 +60,7 @@ jobs:
           echo "GITHUB_REF=$GITHUB_REF"
           pwd
           ls -la
-          cat /etc/os-release
+          cat /etc/centos-release
           which python
           python --version
           ls /opt/anaconda3/bin
@@ -70,6 +70,7 @@ jobs:
           USERNAME: ${{ secrets.ANACONDA_USERNAME }}
           PASSWORD: ${{ secrets.ANACONDA_PASSWORD }}
         run: |
+          /opt/anaconda3/bin/conda config --add channels conda-forge
           /opt/anaconda3/bin/conda config --set anaconda_upload yes
           /opt/anaconda3/bin/anaconda login --username $USERNAME --password $PASSWORD
           /opt/anaconda3/bin/conda-build .
