@@ -43,8 +43,8 @@ jobs:
 
       - name: Installing conda-build
         run: |
-          /opt/anaconda3/bin/conda install conda-build
-          /opt/anaconda3/bin/conda update conda-build
+          /opt/anaconda3/bin/conda install -y conda-build
+          /opt/anaconda3/bin/conda update -y conda-build
 
       - name: Download Agilepy-recipe
         run: |
